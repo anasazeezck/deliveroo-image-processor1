@@ -28,10 +28,11 @@ def generate_seo_content(product_name):
       Description: [Generated Description]
     """
     response = openai.ChatCompletion.create(
-        model="gpt-4",
-        messages=[{"role": "user", "content": prompt}],
-        max_tokens=600
-    )
+    model="gpt-4-turbo",
+    messages=[{"role": "system", "content": "You are an expert in Deliveroo SEO optimization."},
+              {"role": "user", "content": prompt}]
+)
+
     result = response["choices"][0]["message"]["content"].split("\n")
     title = result[0].replace("Title:", "").strip()[:120]  # Ensure title is max 120 characters
     description = result[1].replace("Description:", "").strip()[:500]  # Ensure description is max 500 characters
